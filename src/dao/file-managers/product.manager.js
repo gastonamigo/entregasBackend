@@ -1,16 +1,17 @@
 import fs from "fs";
+import __dirname from "../../utils.js"
 
 class ProductManager {
-    #path = "";
+    path = __dirname + "/dao/file-managers/files/products.json";
 
-    constructor(path) {
-        this.#path = path;
+    constructor() {
+        
     };
 
     //OBTENGO LA LISTA DE PRODUCTOS
     async getProducts() {
         try {
-            const prod = await fs.promises.readFile(this.#path, "utf-8");
+            const prod = await fs.promises.readFile(path, "utf-8");
             return JSON.parse(prod);
 
         } catch (e) {
@@ -54,7 +55,7 @@ class ProductManager {
         if (checkCode) {
             throw new Error("product code already exist");
         } else {
-            await fs.promises.writeFile(this.#path, JSON.stringify([...product, newProduct]));
+            await fs.promises.writeFile(path, JSON.stringify([...product, newProduct]));
         };
     };
     //ACTUALIZA EL PRODUCTO
@@ -81,7 +82,7 @@ class ProductManager {
 
         newArray = [...newArray, productUpdated];
 
-        await fs.promises.writeFile(this.#path, JSON.stringify(newArray));
+        await fs.promises.writeFile(path, JSON.stringify(newArray));
 
         console.log('Updated Product');
     };
@@ -95,12 +96,9 @@ class ProductManager {
 
         } else {
             let eraser = product.filter((p) => p.id !== prodId);
-            await fs.promises.writeFile(this.#path, JSON.stringify(eraser));
+            await fs.promises.writeFile(path, JSON.stringify(eraser));
         };
     };
 };
 
 export default ProductManager;
-
-
-

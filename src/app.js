@@ -1,6 +1,4 @@
 import express, { json } from "express";
-import ProductManager from "./ProductManager.js";
-import CartManager from "./CartManager.js";
 import productRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import __dirname from "./utils.js";
@@ -10,8 +8,6 @@ import viewsRouter from "./routes/views-router.js";
 
 const PORT = 8080;
 
-const manager = new ProductManager("./products.json");
-const cartManager = new CartManager("./carrito.json");
 const app = express();
 
 app.engine("handlebars", engine());
@@ -40,9 +36,6 @@ app.use((req, res, next) => {
   next();
 });
 
-export { manager, cartManager };
 
-// app.get("/", async(req, res)=>{
-//     const product = await manager.getProducts();
-//     res.render("home", {layout: "main", product});
-// });
+
+
